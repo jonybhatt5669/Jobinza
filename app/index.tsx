@@ -1,5 +1,14 @@
 import { useState } from 'react';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  Pressable,
+  StyleSheet,
+  StatusBar,
+  ImageBackground,
+  TouchableOpacity,
+  Platform,
+} from 'react-native';
 export default function OnboardingScreen() {
   const [steps, setSteps] = useState(0);
   const handleNext = () => {
@@ -9,32 +18,36 @@ export default function OnboardingScreen() {
       setSteps((prev) => prev + 1);
     }
   };
+  const titleBgOne = require('../assets/images/titleBg.png');
+  const titleBgTwo = require('../assets/images/titleBgOne.png');
+  const titleBgThree = require('../assets/images/titleBgTwo.png');
   return (
     <View
       className={`${steps === 0 ? 'bg-accent-alternate' : steps === 1 ? 'bg-secondary' : 'bg-[#FCF0C4]'} flex-1 px-8 `}>
       <View className="flex-1 items-center justify-center">
+        <StatusBar barStyle="default" />
         {steps === 0 && (
           <View>
-            <View className="bg-primary px-8 py-4">
-              <Text className="text-4xl font-bold">Welcome</Text>
-            </View>
-            <Text className="mt-2 text-center text-4xl">To Jobinza</Text>
+            <ImageBackground source={titleBgOne} resizeMode="cover" className="py-4">
+              <Text className="text-center  font-Risque text-5xl">Welcome</Text>
+            </ImageBackground>
+            <Text className="mt-2 text-center font-Risque text-6xl">To Jobinza</Text>
           </View>
         )}
         {steps === 1 && (
-          <View>
-            <Text className=" text-center text-4xl">Find</Text>
-            <View className="bg-primary mt-2 px-8 py-4">
-              <Text className=" text-4xl font-bold">Your Career</Text>
-            </View>
+          <View className="font-Risque">
+            <Text className="text-center font-Risque text-5xl">Find</Text>
+            <ImageBackground source={titleBgTwo} resizeMode="cover" className="mt-3.5 py-3 pr-5">
+              <Text className=" font-Risque text-5xl ">Your Career</Text>
+            </ImageBackground>
           </View>
         )}
         {steps === 2 && (
           <View>
-            <View className="bg-accent-alternate px-8 py-4">
-              <Text className="text-4xl font-bold">Let's Start</Text>
-            </View>
-            <Text className="mt-2 text-center text-4xl">Your Journey</Text>
+            <ImageBackground source={titleBgThree} resizeMode="cover" className="mt-3.5 py-3 pr-5">
+              <Text className=" font-Risque text-5xl ">Let's Start</Text>
+            </ImageBackground>
+            <Text className="mt-2 text-center font-Risque text-4xl">Your Journey</Text>
           </View>
         )}
       </View>
@@ -42,24 +55,23 @@ export default function OnboardingScreen() {
         {steps === 2 ? (
           <View>
             <Pressable
-              className="bg-secondary  w-full items-center justify-center rounded-full border px-8 py-3 "
+              className=" w-full items-center justify-center rounded-lg border-2 bg-secondary px-8 py-3 "
               style={style.buttonShadow}>
-              <Text className="text-xl font-medium">Sign In</Text>
+              <Text className="font-MontMedium text-xl font-medium">Sign In</Text>
             </Pressable>
             <Pressable
-              className="bg-primary mb-16 mt-8 w-full items-center justify-center rounded-full border px-8 py-3 "
+              className="my-16 w-full items-center justify-center rounded-lg border-2 bg-white px-8 py-3 "
               style={style.buttonShadow}>
-              <Text className="text-xl font-medium">Sign Up</Text>
+              <Text className="font-MontMedium text-xl font-medium">Sign Up</Text>
             </Pressable>
           </View>
         ) : (
           <>
-            <Pressable
+            <TouchableOpacity
               onPress={handleNext}
-              className="bg-primary my-16 w-full items-center justify-center rounded-full border px-8 py-3 "
-              style={style.buttonShadow}>
-              <Text className="text-xl font-medium">Next</Text>
-            </Pressable>
+              className="my-16 w-full items-center justify-center rounded-lg border-2 bg-white px-8 py-3 ">
+              <Text className="font-MontMedium text-xl font-medium">Next</Text>
+            </TouchableOpacity>
           </>
         )}
       </View>
@@ -68,9 +80,12 @@ export default function OnboardingScreen() {
 }
 
 const style = StyleSheet.create({
-  buttonShadow: {
-    elevation: 15,
-    shadowColor: '#000000',
-    shadowOpacity: 1,
+  buttonShadow: {},
+  buttonText: {
+    color: '#000',
+    fontSize: 20,
+    fontWeight: '900', // Extra bold text // Raw, sans-serif font
+    textAlign: 'center',
+    letterSpacing: -1, // Tight letter spacing for a "crude" look
   },
 });
