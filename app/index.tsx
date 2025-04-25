@@ -1,3 +1,4 @@
+import { Link } from 'expo-router';
 import { useState } from 'react';
 import {
   View,
@@ -54,16 +55,20 @@ export default function OnboardingScreen() {
       <View>
         {steps === 2 ? (
           <View>
-            <Pressable
-              className=" w-full items-center justify-center rounded-lg border-2 bg-secondary px-8 py-3 "
-              style={style.buttonShadow}>
-              <Text className="font-MontMedium text-xl font-medium">Sign In</Text>
-            </Pressable>
-            <Pressable
-              className="my-16 w-full items-center justify-center rounded-lg border-2 bg-white px-8 py-3 "
-              style={style.buttonShadow}>
-              <Text className="font-MontMedium text-xl font-medium">Sign Up</Text>
-            </Pressable>
+            <Link href="/(auth)/sign-in" asChild>
+              <Pressable
+                className=" w-full items-center justify-center rounded-lg border-2 bg-secondary px-8 py-3 "
+                style={style.buttonShadow}>
+                <Text className="font-MontMedium text-xl font-medium">Sign In</Text>
+              </Pressable>
+            </Link>
+            <Link href="/(auth)/sign-up" asChild>
+              <Pressable
+                className="my-16 w-full items-center justify-center rounded-lg border-2 bg-white px-8 py-3 "
+                style={style.buttonShadow}>
+                <Text className="font-MontMedium text-xl font-medium">Sign Up</Text>
+              </Pressable>
+            </Link>
           </View>
         ) : (
           <>
