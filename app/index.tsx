@@ -56,9 +56,7 @@ export default function OnboardingScreen() {
         {steps === 2 ? (
           <View>
             <Link href="/(auth)/sign-in" asChild>
-              <Pressable
-                className=" w-full items-center justify-center rounded-lg border-2 bg-secondary px-8 py-3 "
-                style={style.buttonShadow}>
+              <Pressable className=" w-full items-center justify-center rounded-lg border-2 bg-secondary px-8 py-3 ">
                 <Text className="font-MontMedium text-xl font-medium">Sign In</Text>
               </Pressable>
             </Link>
