@@ -10,7 +10,7 @@ module.exports = {
         secondary: '#D1D175',
         accent: '#382020',
         'accent-alternate': '#A6B7E5',
-        "background":"#F2E6F7"
+        background: '#F2E6F7',
       },
       fontFamily: {
         Risque: ['Risque', 'serif'],
