@@ -1,11 +1,14 @@
+import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { View, Text, Pressable, TextInput } from 'react-native';
 export default function SignIn() {
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
     console.log('email, password', email, password);
+    router.push('/(main)/home');
   };
   return (
     <View className="flex-1 items-center px-12">
@@ -34,7 +37,9 @@ export default function SignIn() {
           />
         </View>
       </View>
-      <Pressable className="mb-20  w-full items-center justify-center rounded-lg border-2 bg-white px-8 py-3 ">
+      <Pressable
+        className="mb-20  w-full items-center justify-center rounded-lg border-2 bg-white px-8 py-3 "
+        onPress={handleLogin}>
         <Text className="font-MontMedium text-xl font-medium">Log In</Text>
       </Pressable>
     </View>
