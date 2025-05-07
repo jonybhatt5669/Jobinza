@@ -68,7 +68,7 @@ export default function Home() {
     </SafeAreaView>
   );
 }
-const renderItem = ({ item }: { item: (typeof JobMock)[0] }) => (
+export const renderItem = ({ item }: { item: (typeof JobMock)[0] }) => (
   <View className=" rounded-2xl border bg-white p-4">
     <View className="flex-row items-center justify-between">
       <Avatar
