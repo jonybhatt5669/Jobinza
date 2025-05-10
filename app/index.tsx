@@ -1,4 +1,4 @@
-import { Link } from 'expo-router';
+import { Link, Redirect, useRouter } from 'expo-router';
 import { useState } from 'react';
 import {
   View,
@@ -12,6 +12,13 @@ import {
 } from 'react-native';
 export default function OnboardingScreen() {
   const [steps, setSteps] = useState(0);
+
+  const isLoggedIn = true;
+
+  if (isLoggedIn) {
+    return <Redirect href="/(main)/home" />;
+  }
+
   const handleNext = () => {
     if (steps >= 2) {
       setSteps(0);
