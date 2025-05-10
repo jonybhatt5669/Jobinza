@@ -97,18 +97,8 @@ export const RenderItem = ({ item, isBookmarked, onToggleBookmark }: RenderItemP
         title={item.title.charAt(0)}
         onPress={() => console.log('Avatar pressed!')}
         activeOpacity={1}
-        titleStyle={{
-          color: '#ffffff',
-          fontSize: 16,
-          backgroundColor: '#121212',
-          borderRadius: 50,
-          width: 30,
-          height: 30,
-          alignItems: 'center',
-          justifyContent: 'center',
-          textAlign: 'center',
-          paddingTop: 2,
-        }}
+        titleStyle={{ fontSize: 20 }}
+        containerStyle={{ backgroundColor: '#000' }}
       />
       <Ionicons
         name={isBookmarked ? 'bookmark' : 'bookmark-outline'}
