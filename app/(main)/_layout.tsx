@@ -1,4 +1,4 @@
-import { Feather } from '@expo/vector-icons';
+import { Feather, Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 export default function MainLayout() {
   return (
@@ -27,6 +27,14 @@ export default function MainLayout() {
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => <Feather name="compass" size={size} color={color} />,
+          tabBarActiveTintColor: '#000',
+        }}
+      />
+      <Tabs.Screen
+        name="bookmark"
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => <Ionicons name="bookmark" size={size} color={color} />,
           tabBarActiveTintColor: '#000',
         }}
       />
