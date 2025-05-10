@@ -1,13 +1,13 @@
 import '../global.css';
 
 import {
-  Montserrat_300Light as MontSerratLight,
-  Montserrat_400Regular as MontSerratRegular,
-  Montserrat_500Medium as MontSerratMedium,
-  Montserrat_600SemiBold as MontSerratSemiBold,
+  Montserrat_900Black as MontSerratBlack,
   Montserrat_700Bold as MontSerratBold,
   Montserrat_800ExtraBold as MontSerratExtraBold,
-  Montserrat_900Black as MontSerratBlack,
+  Montserrat_300Light as MontSerratLight,
+  Montserrat_500Medium as MontSerratMedium,
+  Montserrat_400Regular as MontSerratRegular,
+  Montserrat_600SemiBold as MontSerratSemiBold,
 } from '@expo-google-fonts/montserrat';
 import { Risque_400Regular as Risque, useFonts } from '@expo-google-fonts/risque';
 import { Stack } from 'expo-router';
@@ -21,6 +21,7 @@ export default function Layout() {
     MontSerratBlack,
     MontSerratBold,
     MontSerratExtraBold,
+    MontSerratSemiBold,
     MontSerratMedium,
     MontSerratRegular,
   });
@@ -33,6 +34,7 @@ export default function Layout() {
   if (!loaded && !error) {
     return null;
   }
+
   return (
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="index" />
