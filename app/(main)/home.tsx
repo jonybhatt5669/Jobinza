@@ -1,11 +1,20 @@
 import Entypo from '@expo/vector-icons/Entypo';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Octicons from '@expo/vector-icons/Octicons';
+import { useState } from 'react';
 import { View, Text, TouchableOpacity, Pressable, FlatList } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+
 import { JobMock } from '~/lib/mock-data/job-mock';
 export default function Home() {
+  const [boomarkJobs, setBoomarkJobs] = useState<string[]>([]);
+
+  const toggleBookmark = (jobId: string) => {
+    setBoomarkJobs((prev) =>
+      prev.includes(jobId) ? prev.filter((id) => id !== jobId) : [...prev, jobId]
+    );
+  };
   return (
     <SafeAreaView className="flex-1 bg-background">
       <View className="rounded-bl-3xl bg-black px-6 py-8">
@@ -58,7 +67,13 @@ export default function Home() {
           <FlatList
             data={JobMock}
             keyExtractor={(item) => item.jobId}
-            renderItem={renderItem}
+            renderItem={({ item }) => (
+              <RenderItem
+                item={item}
+                isBookmarked={boomarkJobs.includes(item.jobId)}
+                onToggleBookmark={toggleBookmark}
+              />
+            )}
             contentContainerStyle={{ paddingBottom: 300, gap: 10 }}
             showsVerticalScrollIndicator={false}
             ListFooterComponent={<View className="h-20" />}
@@ -68,7 +83,12 @@ export default function Home() {
     </SafeAreaView>
   );
 }
-export const renderItem = ({ item }: { item: (typeof JobMock)[0] }) => (
+type RenderItemProps = {
+  item: (typeof JobMock)[0];
+  isBookmarked: boolean;
+  onToggleBookmark: (id: string) => void;
+};
+export const RenderItem = ({ item, isBookmarked, onToggleBookmark }: RenderItemProps) => (
   <View className=" rounded-2xl border bg-white p-4">
     <View className="flex-row items-center justify-between">
       <Avatar
@@ -90,7 +110,12 @@ export const renderItem = ({ item }: { item: (typeof JobMock)[0] }) => (
           paddingTop: 2,
         }}
       />
-      <Ionicons name="bookmark-outline" size={24} color="black" />
+      <Ionicons
+        name={isBookmarked ? 'bookmark' : 'bookmark-outline'}
+        size={24}
+        color={`${isBookmarked ? '#A6B7E5' : 'black'}`}
+        onPress={() => onToggleBookmark(item.jobId)}
+      />
     </View>
 
     <View className="mt-1.5 px-3">

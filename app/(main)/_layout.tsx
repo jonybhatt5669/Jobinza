@@ -1,5 +1,5 @@
-import { Tabs } from 'expo-router';
 import { Feather } from '@expo/vector-icons';
+import { Tabs } from 'expo-router';
 export default function MainLayout() {
   return (
     <Tabs
