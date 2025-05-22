@@ -21,7 +21,7 @@ export default function BookmarkScreen() {
               activeOpacity={0.7}
               containerStyle={{ backgroundColor: '#000' }}
             />
-            <Ionicons name={'bookmark'} size={24} color="#A6B7E5" />
+            <Ionicons name="bookmark" size={24} color="#A6B7E5" />
           </View>
           <View className="mt-1.5 px-1">
             <Text className="font-MontBold text-xl">Product Designer</Text>
