@@ -1,14 +1,13 @@
-import { Link, Redirect, useRouter } from 'expo-router';
+import { Link, Redirect } from 'expo-router';
 import { useState } from 'react';
 import {
-  View,
-  Text,
-  Pressable,
-  StyleSheet,
-  StatusBar,
   ImageBackground,
+  Pressable,
+  StatusBar,
+  StyleSheet,
+  Text,
   TouchableOpacity,
-  Platform,
+  View,
 } from 'react-native';
 export default function OnboardingScreen() {
   const [steps, setSteps] = useState(0);
@@ -33,7 +32,6 @@ export default function OnboardingScreen() {
     <View
       className={`${steps === 0 ? 'bg-accent-alternate' : steps === 1 ? 'bg-secondary' : 'bg-[#FCF0C4]'} flex-1 px-8 `}>
       <View className="flex-1 items-center justify-center">
-        <StatusBar barStyle="default" />
         {steps === 0 && (
           <View>
             <ImageBackground source={titleBgOne} resizeMode="cover" className="py-4">
