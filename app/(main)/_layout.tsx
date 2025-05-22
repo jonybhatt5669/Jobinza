@@ -38,6 +38,14 @@ export default function MainLayout() {
           tabBarActiveTintColor: '#000',
         }}
       />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => <Ionicons name="person" size={size} color={color} />,
+          tabBarActiveTintColor: '#000',
+        }}
+      />
     </Tabs>
   );
 }
