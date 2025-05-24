@@ -1,6 +1,6 @@
+import { FontAwesome5, AntDesign } from '@expo/vector-icons';
 import { View, Text, Pressable } from 'react-native';
 import { Avatar } from 'react-native-elements';
-import { FontAwesome5, AntDesign } from '@expo/vector-icons';
 export default function ProfileScreen() {
   return (
     <View className="flex-1 bg-background">
