@@ -1,14 +1,30 @@
 import Entypo from '@expo/vector-icons/Entypo';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Octicons from '@expo/vector-icons/Octicons';
-import { useState } from 'react';
-import { View, Text, TouchableOpacity, Pressable, FlatList } from 'react-native';
+import { useEffect, useState } from 'react';
+import { FlatList, Pressable, Text, TouchableOpacity, View } from 'react-native';
 import { Avatar } from 'react-native-elements';
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { options, url } from '~/lib/api';
+import { JobListing } from '~/lib/interfaces/JobInterface';
 import { JobMock } from '~/lib/mock-data/job-mock';
 export default function Home() {
   const [boomarkJobs, setBoomarkJobs] = useState<string[]>([]);
+  const [jobs, setJobs] = useState<JobListing[]>([]);
+
+  const fetchJobs = async () => {
+    try {
+      const response = await fetch(url, options);
+      const result = await response.json();
+      setJobs(result);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    fetchJobs();
+  }, []);
 
   const toggleBookmark = (jobId: string) => {
     setBoomarkJobs((prev) =>
@@ -65,12 +81,12 @@ export default function Home() {
         {/** Job Card */}
         <View className="mb-16 mt-4">
           <FlatList
-            data={JobMock}
-            keyExtractor={(item) => item.jobId}
+            data={jobs}
+            keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
               <RenderItem
                 item={item}
-                isBookmarked={boomarkJobs.includes(item.jobId)}
+                isBookmarked={boomarkJobs.includes(item.id)}
                 onToggleBookmark={toggleBookmark}
               />
             )}
@@ -84,7 +100,7 @@ export default function Home() {
   );
 }
 type RenderItemProps = {
-  item: (typeof JobMock)[0];
+  item: JobListing;
   isBookmarked: boolean;
   onToggleBookmark: (id: string) => void;
 };
@@ -92,9 +108,10 @@ export const RenderItem = ({ item, isBookmarked, onToggleBookmark }: RenderItemP
   <View className=" rounded-2xl border bg-white p-4">
     <View className="flex-row items-center justify-between">
       <Avatar
-        size="medium"
+        size="small"
         rounded
         title={item.title.charAt(0)}
+        source={{ uri: `${item.organization_logo}` }}
         onPress={() => console.log('Avatar pressed!')}
         activeOpacity={1}
         titleStyle={{ fontSize: 20 }}
@@ -104,21 +121,24 @@ export const RenderItem = ({ item, isBookmarked, onToggleBookmark }: RenderItemP
         name={isBookmarked ? 'bookmark' : 'bookmark-outline'}
         size={24}
         color={`${isBookmarked ? '#A6B7E5' : 'black'}`}
-        onPress={() => onToggleBookmark(item.jobId)}
+        onPress={() => onToggleBookmark(item.id)}
       />
     </View>
 
-    <View className="mt-1.5 px-3">
+    <View className="mt-1.5 px-1">
       <Text className="font-MontBold text-xl">{item.title}</Text>
 
       <View className="flex-row items-center gap-2">
-        <Text className="font-MontMedium text-base text-gray-400">{item.location}</Text>
+        <Text className="font-MontMedium text-base text-gray-400">{item.locations_derived[0]}</Text>
         <Text className="font-MontMedium text-xl text-gray-400">|</Text>
-        <Text className="font-MontMedium text-base text-gray-400">{item.salaryRange}</Text>
       </View>
+      <Text className="font-MontMedium text-base text-gray-400">
+        {item.salary_raw?.currency} {item.salary_raw?.value.minValue}- {item.salary_raw?.currency}{' '}
+        {item.salary_raw?.value.maxValue}
+      </Text>
 
       {/* Skills / Categories */}
-      <View className="my-4 flex-row flex-wrap items-center gap-2">
+      {/* <View className="my-4 flex-row flex-wrap items-center gap-2">
         {item.skills.slice(0, 2).map((skill, index) => (
           <Pressable
             key={index}
@@ -126,7 +146,7 @@ export const RenderItem = ({ item, isBookmarked, onToggleBookmark }: RenderItemP
             <Text className="font-MontMedium text-base">{skill}</Text>
           </Pressable>
         ))}
-      </View>
+      </View> */}
     </View>
   </View>
 );
