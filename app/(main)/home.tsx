@@ -1,15 +1,16 @@
 import Entypo from '@expo/vector-icons/Entypo';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Octicons from '@expo/vector-icons/Octicons';
+import { router, Router, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, Pressable, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, FlatList, Text, TouchableOpacity, View } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { options, url } from '~/lib/api';
 import { JobListing } from '~/lib/interfaces/JobInterface';
-import { JobMock } from '~/lib/mock-data/job-mock';
 export default function Home() {
+  const router = useRouter();
   const [boomarkJobs, setBoomarkJobs] = useState<string[]>([]);
   const [jobs, setJobs] = useState<JobListing[]>([]);
   const [loading, setLoading] = useState(false);
@@ -98,6 +99,7 @@ export default function Home() {
                   item={item}
                   isBookmarked={boomarkJobs.includes(item.id)}
                   onToggleBookmark={toggleBookmark}
+                  router={router}
                 />
               )}
               contentContainerStyle={{ paddingBottom: 300, gap: 10 }}
@@ -114,9 +116,14 @@ type RenderItemProps = {
   item: JobListing;
   isBookmarked: boolean;
   onToggleBookmark: (id: string) => void;
+  router: Router;
 };
 export const RenderItem = ({ item, isBookmarked, onToggleBookmark }: RenderItemProps) => (
-  <View className=" rounded-2xl border bg-white p-4">
+  <TouchableOpacity
+    className="rounded-2xl border bg-white p-4"
+    onPress={() => {
+      router.push(`/job/${item.title}`);
+    }}>
     <View className="flex-row items-center justify-between">
       <Avatar
         size="small"
@@ -159,5 +166,5 @@ export const RenderItem = ({ item, isBookmarked, onToggleBookmark }: RenderItemP
         ))}
       </View> */}
     </View>
-  </View>
+  </TouchableOpacity>
 );
