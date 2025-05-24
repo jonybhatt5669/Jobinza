@@ -2,7 +2,7 @@ import Entypo from '@expo/vector-icons/Entypo';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Octicons from '@expo/vector-icons/Octicons';
 import { useEffect, useState } from 'react';
-import { FlatList, Pressable, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, FlatList, Pressable, Text, TouchableOpacity, View } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -12,14 +12,21 @@ import { JobMock } from '~/lib/mock-data/job-mock';
 export default function Home() {
   const [boomarkJobs, setBoomarkJobs] = useState<string[]>([]);
   const [jobs, setJobs] = useState<JobListing[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const fetchJobs = async () => {
+    setLoading(true);
     try {
       const response = await fetch(url, options);
       const result = await response.json();
-      setJobs(result);
+      if (result.length > 0) {
+        setJobs(result);
+        setLoading(false);
+      }
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
   useEffect(() => {
@@ -80,20 +87,24 @@ export default function Home() {
         <Text className="font-MontSemiBold text-3xl">Jobs for you</Text>
         {/** Job Card */}
         <View className="mb-16 mt-4">
-          <FlatList
-            data={jobs}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-              <RenderItem
-                item={item}
-                isBookmarked={boomarkJobs.includes(item.id)}
-                onToggleBookmark={toggleBookmark}
-              />
-            )}
-            contentContainerStyle={{ paddingBottom: 300, gap: 10 }}
-            showsVerticalScrollIndicator={false}
-            ListFooterComponent={<View className="h-20" />}
-          />
+          {loading ? (
+            <ActivityIndicator size="large" color="#A6B7E5" />
+          ) : (
+            <FlatList
+              data={jobs}
+              keyExtractor={(item) => item.id}
+              renderItem={({ item }) => (
+                <RenderItem
+                  item={item}
+                  isBookmarked={boomarkJobs.includes(item.id)}
+                  onToggleBookmark={toggleBookmark}
+                />
+              )}
+              contentContainerStyle={{ paddingBottom: 300, gap: 10 }}
+              showsVerticalScrollIndicator={false}
+              ListFooterComponent={<View className="h-20" />}
+            />
+          )}
         </View>
       </View>
     </SafeAreaView>
