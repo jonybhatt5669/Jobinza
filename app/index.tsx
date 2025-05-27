@@ -1,18 +1,10 @@
 import { Link, Redirect } from 'expo-router';
 import { useState } from 'react';
-import {
-  ImageBackground,
-  Pressable,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { ImageBackground, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 export default function OnboardingScreen() {
   const [steps, setSteps] = useState(0);
 
-  const isLoggedIn = true;
+  const isLoggedIn = false;
 
   if (isLoggedIn) {
     return <Redirect href="/(main)/home" />;
