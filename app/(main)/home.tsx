@@ -59,30 +59,10 @@ export default function Home() {
         {/** Headline */}
         <View className="my-4">
           <Text className="font-MontBold text-4xl leading-normal text-white">
-            Explore more then 10,000+ Jobs{' '}
+            Get your {'\n'}Internship Today
           </Text>
         </View>
         {/** Buttons */}
-        <View className="my-4 flex-row items-center">
-          {/** Button 1 */}
-          <View className="flex-row items-center justify-between gap-2 overflow-hidden rounded-full bg-primary px-4 py-2.5">
-            <Text className="font-MontMedium text-sm">Ux Design</Text>
-            <View className="items-center justify-center rounded-full bg-secondary px-4 ">
-              <Text className="textc mt-1 font-MontMedium text-sm">158</Text>
-            </View>
-          </View>
-          {/** Button 2 */}
-          <View className="-ml-2 flex-row items-center justify-between gap-2 overflow-hidden rounded-full bg-primary px-4 py-2.5">
-            <Text className="font-MontMedium text-sm">Marketing</Text>
-            <View className="items-center justify-center rounded-full bg-secondary px-4 ">
-              <Text className="mt-1 text-center font-MontMedium text-sm">158</Text>
-            </View>
-          </View>
-          {/** Button 2 */}
-          <TouchableOpacity className="-ml-2 h-12 w-12 flex-row items-center justify-center gap-2 overflow-hidden rounded-full bg-primary">
-            <Octicons name="link-external" size={24} color="black" />
-          </TouchableOpacity>
-        </View>
       </View>
       <View className="mt-8 px-6">
         <Text className="font-MontSemiBold text-3xl">Jobs for you</Text>
@@ -133,7 +113,12 @@ export const RenderItem = ({ item, isBookmarked, onToggleBookmark }: RenderItemP
         onPress={() => console.log('Avatar pressed!')}
         activeOpacity={1}
         titleStyle={{ fontSize: 20 }}
-        containerStyle={{ backgroundColor: '#000' }}
+        containerStyle={{
+          backgroundColor: '#fff',
+          borderWidth: 2,
+          borderColor: '#000',
+          padding: 4,
+        }}
       />
       <Ionicons
         name={isBookmarked ? 'bookmark' : 'bookmark-outline'}
